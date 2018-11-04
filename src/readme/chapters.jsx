@@ -7,8 +7,11 @@ export default function Chapters() {
 
       <ul>
         <li>01-start-here</li>
-        <li>02-upgrade-react-version</li>
-        <li>03-the-card-component</li>
+        <li>02-the-card-component</li>
+        <li>03-the-game-board</li>
+        <li>04-responsive-board</li>
+        <li>05-game-rules</li>
+        <li>06-preload-images</li>
       </ul>
     </div>
   )

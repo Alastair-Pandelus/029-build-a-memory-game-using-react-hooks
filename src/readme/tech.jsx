@@ -18,7 +18,8 @@ export default function Tech() {
           </ul>
         </li>
         <li>setTimeout</li>
-        <li>CSS keyframes</li>
+        <li>addEventListener</li>
+        <li>CSS Animations</li>
       </ul>
     </div>
   )
