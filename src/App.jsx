@@ -6,7 +6,9 @@ import initializeDeck from './deck'
 export default function App() {
   const [cards, setCards] = useState([])
   const [flipped, setFlipped] = useState([])
+  const [solved, setSolved] = useState([])
   const [dimension, setDimension] = useState(400)
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     resizeBoard()
@@ -28,7 +30,35 @@ export default function App() {
     )
   }
 
-  const handleClick = (id) => setFlipped((flipped) => [...flipped, id])
+  const sameCardClickedTwice = (id) => flipped.includes(id)
+
+  const isAMatch = (id) => {
+    const clickedCard = cards.find((card) => card.id === id)
+    const flippedCard = cards.find((card) => flipped[0] === card.id)
+    return flippedCard.type === clickedCard.type
+  }
+
+  const resetCards = () => {
+    setFlipped([])
+    setDisabled(false)
+  }
+
+  const handleClick = (id) => {
+    setDisabled(true)
+    if (flipped.length === 0) {
+      setFlipped((flipped) => [...flipped, id])
+      setDisabled(false)
+    } else {
+      if (sameCardClickedTwice(flipped, id)) return
+      setFlipped((flipped) => [...flipped, id])
+      if (isAMatch(id)) {
+        setSolved([...solved, ...flipped, id])
+        resetCards()
+      } else {
+        setTimeout(resetCards, 2000)
+      }
+    }
+  }
 
   return (
     <div>
@@ -38,8 +68,10 @@ export default function App() {
       <Board
         cards={cards}
         flipped={flipped}
+        solved={solved}
         dimension={dimension}
         handleClick={handleClick}
+        disabled={disabled}
       />
     </div>
   )
