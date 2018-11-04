@@ -42,4 +42,5 @@ Card.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   handleClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }

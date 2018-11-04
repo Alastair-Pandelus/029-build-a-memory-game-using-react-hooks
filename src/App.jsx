@@ -15,11 +15,22 @@ export default function App() {
     setCards(initializeDeck())
   }, [])
 
+
+  useEffect(() => {
+    preloadImages()
+  }, cards)
+
   useEffect(() => {
     const resizeListener = window.addEventListener('resize', resizeBoard)
 
     return () => window.removeEventListener('resize', resizeListener)
   })
+
+  const preloadImages = () =>
+    cards.map((card) => {
+      const src = `/img/${card.type}.png`
+      new Image().src = src
+    })
 
   const resizeBoard = () => {
     setDimension(
@@ -31,13 +42,13 @@ export default function App() {
   }
 
   const sameCardClickedTwice = (id) => flipped.includes(id)
+
   const isAMatch = (id) => {
     const clickedCard = cards.find((card) => card.id === id)
-    const flippedCard = cards.find((card) =>
-      flipped.find((id) => id === card.id),
-    )
+    const flippedCard = cards.find((card) => flipped[0] === card.id)
     return flippedCard.type === clickedCard.type
   }
+
   const resetCards = () => {
     setFlipped([])
     setDisabled(false)
