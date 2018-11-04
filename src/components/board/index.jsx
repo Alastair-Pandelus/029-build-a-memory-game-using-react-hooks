@@ -5,7 +5,14 @@ import Card from '../card'
 
 import './styles.css'
 
-export default function Board({ dimension, cards, flipped, handleClick }) {
+export default function Board({
+  dimension,
+  cards,
+  flipped,
+  solved,
+  handleClick,
+  disabled,
+}) {
   return (
     <div
       className='board'
@@ -21,6 +28,8 @@ export default function Board({ dimension, cards, flipped, handleClick }) {
           height={dimension / 4.5}
           handleClick={handleClick}
           flipped={flipped.includes(card.id)}
+          solved={solved.includes(card.id)}
+          disabled={disabled || solved.includes(card.id)}
           {...card}
         />
       ))}
@@ -32,5 +41,7 @@ Board.propTypes = {
   dimension: PropTypes.number.isRequired,
   cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   flipped: PropTypes.arrayOf(PropTypes.number).isRequired,
+  solved: PropTypes.arrayOf(PropTypes.number).isRequired,
   handleClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
